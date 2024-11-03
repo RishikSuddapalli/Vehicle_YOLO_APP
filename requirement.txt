@@ -1,7 +1,5 @@
-Flask
-flask-cors
-ultralytics
-torch
-Pillow
-gunicorn
-Werkzeug
+Flask==3.0.3
+ultralytics==8.3.24
+Pillow==11.0.0
+torch==2.5.0+cpu
+Werkzeug==3.0.6
