@@ -1,5 +1,5 @@
-Flask==3.0.3
+flask==3.0.3
 ultralytics==8.3.24
-Pillow==11.0.0
+pillow==11.0.0
 torch==2.5.0+cpu
-Werkzeug==3.0.6
+werkzeug==3.0.6
