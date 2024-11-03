@@ -6,17 +6,18 @@ import shutil
 
 app = Flask(__name__)
 app.secret_key = 'your_secret_key'  
-app.config['UPLOAD_FOLDER'] = 'upload'
-app.config['PREDICT_FOLDER'] = 'runs/predict'
+app.config['UPLOAD_FOLDER'] = '/tmp/upload'  #
+app.config['PREDICT_FOLDER'] = '/tmp/runs/predict' 
 
 # Ensure directories exist
 os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
 os.makedirs(app.config['PREDICT_FOLDER'], exist_ok=True)
 
-# Initialize YOLO model outside the route to load it only once
+# Initialize YOLO model
 model = YOLO("Yolov10m_trained.pt")
 last_file_name = ""
 predict_count = 1
+
 @app.route("/", methods=["GET", "POST"])
 def index():
     global last_file_name
@@ -27,6 +28,7 @@ def index():
             upload_path = os.path.join(app.config['UPLOAD_FOLDER'], last_file_name)
             file.save(upload_path)
             return redirect(url_for("index"))
+
     # Check if prediction result exists
     predict_path = None
     result_folder = f"result{predict_count - 1}"
@@ -34,6 +36,7 @@ def index():
         predict_path = f"{app.config['PREDICT_FOLDER']}/{result_folder}/{last_file_name}"
     
     return render_template("index.html", uploaded_file=last_file_name, predicted_file=predict_path, predict_count=predict_count)
+
 @app.route("/predict", methods=["POST"])
 def predict():
     global predict_count, last_file_name
@@ -46,9 +49,10 @@ def predict():
         
         # Update predict_path to the latest prediction result
         predict_path = f"{app.config['PREDICT_FOLDER']}/result{predict_count}/{last_file_name}"
-        predict_count += 1  # Increment after prediction completes
+        predict_count += 1  
     
     return redirect(url_for("index", predicted_file=predict_path))
+
 @app.route('/upload/<filename>')
 def uploaded_file(filename):
     return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
@@ -71,7 +75,7 @@ def clear_cache():
                 if os.path.isfile(file_path):
                     os.unlink(file_path)
                 elif os.path.isdir(file_path):
-                    shutil.rmtree(file_path)  # Use shutil to delete non-empty directories
+                    shutil.rmtree(file_path)  
             except Exception as e:
                 print(f"Error deleting {file_path}: {e}")
     
@@ -80,4 +84,3 @@ def clear_cache():
 
 if __name__ == "__main__":
     app.run(debug=True)
-
