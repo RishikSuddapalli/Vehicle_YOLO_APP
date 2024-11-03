@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vehicle Object Detection</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            text-align: center;
+            margin: 20px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        #results {
+            display: none;
+            margin-top: 20px;
+        }
+
+        #results img {
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Vehicle Object Detection</h1>
+        <form action="/" method="POST" enctype="multipart/form-data">
+            <input type="file" name="file" id="file-input" accept=".png,.jpg,.jpeg,.mp4,.avi">
+            <button type="submit">Detect Objects</button>
+        </form>
+        <div id="results" class="results-container"></div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const form = document.querySelector('form');
+            const resultsContainer = document.getElementById('results');
+
+            form.addEventListener('submit', async (event) => {
+                event.preventDefault();
+
+                const formData = new FormData(form);
+                const response = await fetch('/', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const data = await response.json();
+
+                if (data.error) {
+                    alert(data.error);
+                } else {
+                    resultsContainer.style.display = 'block';
+                    resultsContainer.innerHTML = `
+                        <h2>Prediction Results</h2>
+                        <img src="/uploads/${data.filename}" alt="Predicted Image">
+                    `;
+                }
+            });
+        });
+    </script>
+</body>
+</html>
