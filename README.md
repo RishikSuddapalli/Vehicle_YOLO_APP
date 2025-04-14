@@ -1,5 +1,5 @@
-![Screenshot 2024-11-18 192236](https://github.com/user-attachments/assets/b009ae27-2f63-4a9c-a05c-bb25dbaae830)
-## YOLO Vehicle Detection App - README
+
+## YOLO Vehicle Detection App
 
 This is a web application that utilizes the YOLO object detection model to identify vehicles in images and videos. Users can upload an image or video file, and the app will display the detected vehicles with bounding boxes.
 
@@ -36,8 +36,9 @@ Reffer to requirement.txt
    python app.py
    ```
 2. Open http://127.0.0.1:5000/ in your web browser.
+![image](https://github.com/user-attachments/assets/2960e56e-cda9-4c75-bd43-d5d4553de25d)
 3. Click on Clear Cache.
-![image](https://github.com/user-attachments/assets/3de019e8-aaf5-4ec4-af54-6f82d9cac76e)
+![Screenshot 2024-11-18 192136](https://github.com/user-attachments/assets/23719368-930e-4283-886d-4b9ce546af88)
 4. Click "Choose File" and select an image or video file.
 5. Click "Upload Image/Video" to upload the file.
 ![Screenshot 2024-11-18 192236](https://github.com/user-attachments/assets/3ae568e3-0389-4d33-8d38-636c701383a4)
