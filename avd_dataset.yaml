@@ -1,9 +1,9 @@
 # Dataset configuration for YOLO
 
-# Paths to training and validation images
-train: C:/Users/KIIT/Desktop/Major/YOLOV11/AVD-Dataset/images/Train/
-val: C:/Users/KIIT/Desktop/Major/YOLOV11/AVD-Dataset/images/Val/
-test: C:/Users/KIIT/Desktop/Major/YOLOV11/AVD-Dataset/images/Test/
+# Paths to training and validation images(please edit address according to your system)
+train: AVD-Dataset/images/Train/
+val: AVD-Dataset/images/Val/
+test: AVD-Dataset/images/Test/
 
 # Number of classes
 nc: 15 
